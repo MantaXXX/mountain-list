@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mountain list</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</head>
+
+<body>
+  <div id="list">
+    <div class="list-container">
+      <h3>登山用品清單</h3>
+      <form>
+        <input type="text" placeholder="物品清單" v-model="newItem">
+        <label>類型：</label>
+        <select v-model="type">
+          <option value="" disabled>請選擇</option>
+          <option v-for="(items, type) in categories" v-bind:value="type"> {{ type }} </option>
+        </select>
+        <button @click.prevent="addItem">送出</button>
+      </form>
+
+      <div class="list-item">
+        <ul v-for="(items, type) in categories">
+          <h3> {{ type }} </h3>
+          <template v-for="item in items">
+            <li v-bind:class="{ active: item.completed }">
+              <input type="checkbox" v-model="item.completed">
+              <span>{{ item.content }}</span>
+              <a href="#" @click.prevent="removeItem(item)"> －
+                <i class="fas fa-times"></i>
+              </a>
+            </li>
+          </template>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+  <div id="map">
+    <h2> 登山地圖 </h2>
+    <div class="google-map"></div>
+  </div>
+  </main>
+
+
+
+  <script src=" https://unpkg.com/vue@next"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd9KlzjKKZ9HMEceE1W-SXWrR7NAMAhek" async
+    defer></script>
+  <script src="./main.js"></script>
+</body>
+
+</html>
